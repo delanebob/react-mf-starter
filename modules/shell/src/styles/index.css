@@ -1,0 +1,20 @@
+nav {
+  display: flex;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(204, 204, 204);
+  border-bottom-width: 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  padding: 20px;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
