@@ -1,5 +1,5 @@
 {
-  "name": "shell",
+  "name": "dashboard",
   "version": "0.0.0",
   "private": true,
   "devDependencies": {
@@ -21,7 +21,7 @@
   "scripts": {
     "start": "webpack-cli serve",
     "build": "webpack --mode production",
-    "serve": "serve dist -p 3000",
+    "serve": "serve dist -p 3002",
     "clean": "rm -rf dist"
   },
   "dependencies": {

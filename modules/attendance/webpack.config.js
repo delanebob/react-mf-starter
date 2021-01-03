@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack").container
   .ModuleFederationPlugin;
-const { getModulePort, getRemoteUrl } = require("../../webpack-utils/publicPaths");
+const { getModulePort } = require("../../webpack-utils/publicPaths");
 const { name, dependencies } = require("./package.json");
 const path = require("path");
 
@@ -16,7 +16,7 @@ module.exports = {
     hotOnly: false,
   },
   output: {
-    publicPath: "/",
+    publicPath: "auto",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
@@ -43,9 +43,9 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name,
-      remotes: {
-        dashboard: getRemoteUrl('dashboard'),
-        attendance: getRemoteUrl('attendance'),
+      filename: "remoteEntry.js",
+      exposes: {
+        "./routes": "./src/routes",
       },
       shared: {
         ...dependencies,

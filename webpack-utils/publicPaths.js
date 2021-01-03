@@ -1,8 +1,8 @@
 // Try to keep this list in port order as it's easier to see conflicts.
 const modulePorts = {
   'shell': 3000,
-  'landing': 3001,
-  'checkout': 3002,
+  'dashboard': 3001,
+  'attendance': 3002,
 };
 
 const getModulePort = (moduleName) => {
@@ -12,7 +12,7 @@ const getModulePort = (moduleName) => {
   }
 
   throw `Could not find port for module ${moduleName}. Please assign one in /webpack-utils/publicPaths.js`;
-}
+};
 
 const getPublicPath = (moduleName, mode) => {
   if (mode !== 'development') {
@@ -25,10 +25,16 @@ const getPublicPath = (moduleName, mode) => {
   }
 
   throw `Could not find port for module ${moduleName}. Please assign one in /webpack-utils/publicPaths.js`;
-}
+};
+
+const getRemoteUrl = (moduleName) => {
+  const modulePort = getModulePort(moduleName);
+  return `${moduleName}@http://localhost:${modulePort}/remoteEntry.js`;
+};
 
 module.exports = {
   getModulePort,
-  getPublicPath
+  getPublicPath,
+  getRemoteUrl,
 };
 
