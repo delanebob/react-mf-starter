@@ -1,3 +1,7 @@
+const path = require("path");
+
+const timestamp = Date.now();
+
 // Try to keep this list in port order as it's easier to see conflicts.
 const modulePorts = {
   'shell': 3000,
@@ -15,8 +19,8 @@ const getModulePort = (moduleName) => {
 };
 
 const getPublicPath = (moduleName, mode) => {
-  if (mode !== 'development') {
-    return `http://example.com/${moduleName}`;
+  if (mode === 'production') {
+    return `/static/${moduleName}/`;
   }
 
   const modulePort = getModulePort(moduleName);
@@ -27,14 +31,19 @@ const getPublicPath = (moduleName, mode) => {
   throw `Could not find port for module ${moduleName}. Please assign one in /webpack-utils/publicPaths.js`;
 };
 
-const getRemoteUrl = (moduleName) => {
-  const modulePort = getModulePort(moduleName);
-  return `${moduleName}@http://localhost:${modulePort}/remoteEntry.js`;
+const getRemoteUrl = (moduleName, mode) => {
+  const publicPath = getPublicPath(moduleName, mode);
+  return `${moduleName}@${publicPath}remoteEntry.js?v=${timestamp}`;
 };
+
+const getProductionDistPath = (moduleName) => {
+  return path.resolve(__dirname, `../dist/static/${moduleName}`);
+}
 
 module.exports = {
   getModulePort,
   getPublicPath,
   getRemoteUrl,
+  getProductionDistPath,
 };
 
